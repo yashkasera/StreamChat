@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.yashkasera.streamchat.ui.home.HomeFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_createChannelFragment"
+            app:destination="@id/createChannelFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_starredFragment"
+            app:destination="@id/starredFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mentionsFragment"
+            app:destination="@id/mentionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.yashkasera.streamchat.ui.chat.ChatFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat">
+        <argument
+            android:name="channelId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/createChannelFragment"
+        android:name="com.yashkasera.streamchat.ui.channel.CreateChannelFragment"
+        android:label="Create a channel"
+        tools:layout="@layout/fragment_create_channel">
+        <action
+            android:id="@+id/action_createChannelFragment_to_bottomSheetSearchRecyclerFragment"
+            app:destination="@id/bottomSheetSearchRecyclerFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/bottomSheetSearchRecyclerFragment"
+        android:name="com.yashkasera.streamchat.ui.dialogs.BottomSheetSearchRecyclerFragment"
+        android:label="BottomSheetSearchRecyclerFragment"
+        tools:layout="@layout/bottomsheet_search_recycler" />
+    <fragment
+        android:id="@+id/starredFragment"
+        android:name="com.yashkasera.streamchat.ui.starred.StarredFragment"
+        android:label="Starred Messages"
+        tools:layout="@layout/fragment_starred">
+        <action
+            android:id="@+id/action_starredFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mentionsFragment"
+        android:name="com.yashkasera.streamchat.ui.chat.MentionsFragment"
+        android:label="MentionsFragment"
+        tools:layout="@layout/fragment_mentions" >
+        <action
+            android:id="@+id/action_mentionsFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+</navigation>

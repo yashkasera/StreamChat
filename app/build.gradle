@@ -1,0 +1,87 @@
+plugins {
+    id "com.android.application"
+    id "org.jetbrains.kotlin.android"
+    id "androidx.navigation.safeargs.kotlin"
+    id "kotlin-kapt"
+}
+
+def majorVersion = 1
+def minorVersion = 0
+def patchVersion = 0
+
+
+def secretPropertiesFile = rootProject.file("secret.properties")
+def secretProperties = new Properties()
+secretProperties.load(new FileInputStream(secretPropertiesFile))
+
+android {
+    namespace "com.yashkasera.streamchat"
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.yashkasera.streamchat"
+        minSdk 24
+        targetSdk 33
+        versionCode majorVersion * 10000 + minorVersion * 100 + patchVersion
+        versionName "${majorVersion}.${minorVersion}.${patchVersion}"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "STREAM_API_KEY", "\"" + secretProperties["STREAM_API_KEY"] + "\""
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+
+    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.8.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.annotation:annotation:1.6.0")
+
+    //stream
+    implementation("io.getstream:stream-chat-android-ui-components:5.8.2")
+
+    //lifecycle
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
+
+    //retrofit
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //navigation
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+
+    //glide
+    implementation('com.github.bumptech.glide:glide:4.14.2')
+    kapt("com.github.bumptech.glide:compiler:4.14.2")
+
+    //shimmer
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+    //dexter
+    implementation("com.karumi:dexter:6.2.3")
+
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+}
